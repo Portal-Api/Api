@@ -1,4 +1,4 @@
-name: Android CI
+name: Api CI
 
 on: [push, pull_request]
 
@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   build:
-    name: Run tests and generate APK
+    name: Run tests and generate Api
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -85,20 +85,20 @@ jobs:
           chmod +x codecov
           ./codecov -f "app/build/reports/jacoco/testBetaDebugUnitTestUnifiedCoverage/testBetaDebugUnitTestUnifiedCoverage.xml" -Z
 
-      - name: Generate betaDebug APK
+      - name: Generate betaDebug Api
         run: bash ./gradlew assembleBetaDebug --stacktrace
 
-      - name: Upload betaDebug APK
+      - name: Upload betaDebug Api
         uses: actions/upload-artifact@v2.3.1
         with:
-          name: betaDebugAPK
-          path: app/build/outputs/apk/beta/debug/app-*.apk
+          name: betaDebugApi
+          path: app/build/outputs/api/beta/debug/api-*.api
 
-      - name: Generate apiDebug APK
+      - name: Generate apiDebug
         run: bash ./gradlew assembleProdDebug --stacktrace
 
-      - name: Upload apiDebug APK
+      - name: Upload apiDebug
         uses: actions/upload-artifact@v2.3.1
         with:
-          name: apiDebugAPK
-          path: app/build/outputs/apk/api/debug/app-*.apk
+          name: apiDebug
+          path: app/build/outputs/api/debug/api-*.api
